@@ -1,3 +1,5 @@
+
+
 def main():
     book_path = "books/frankenstein.txt"
     text = get_book_path(book_path)
@@ -6,6 +8,27 @@ def main():
     print(number_of_words)
     number_of_characters = get_chars_dict(text.lower())
     print(number_of_characters)
+    print_a_report(book_path, number_of_words, number_of_characters)
+
+
+def sort_on(dictionary, c):
+    return dictionary[c]
+
+
+def print_a_report(book_path, number_of_words, dict_of_numbers):
+    # Step 1: Convert the dictionary to a list of dictionaries
+    char_list = [{'char': k, 'num': v} for k, v in dict_of_numbers.items() if k.isalpha()]
+
+    # Step 2: Sort the list based on 'num'
+    char_list.sort(reverse=True, key=lambda x: x['num'])
+
+    # Step 3: Print the sorted list
+    print(f"--- Beginning report of {book_path} ---\n"
+          f"{number_of_words} words found in the document\n")
+    for entry in char_list:
+        print(f"The '{entry['char']}' character was found {entry['num']} times")
+    print("--- End report ---")
+
 
 def get_chars_dict(lowered_text):
     chars = {}
